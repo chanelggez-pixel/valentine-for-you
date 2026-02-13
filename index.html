@@ -6,10 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Google Font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -29,14 +26,14 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(255,255,255,0.18);
       backdrop-filter: blur(10px);
       padding: 30px;
       border-radius: 25px;
       text-align: center;
       width: 90%;
       max-width: 420px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
       animation: fadeIn 1.5s ease;
     }
 
@@ -57,14 +54,13 @@
 
     .counter {
       margin-top: 15px;
-      font-weight: 400;
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255,255,255,0.25);
       padding: 10px;
       border-radius: 15px;
     }
 
     button {
-      margin-top: 20px;
+      margin-top: 15px;
       padding: 12px 25px;
       border-radius: 30px;
       border: none;
@@ -88,55 +84,36 @@
       animation: fadeIn 1s ease;
     }
 
-    /* Floating hearts */
     .floating-heart {
       position: absolute;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255,255,255,0.7);
       font-size: 20px;
       animation: floatUp 6s linear infinite;
       bottom: -30px;
     }
 
     @keyframes beat {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.2);
-      }
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-120vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
     }
   </style>
 </head>
 
 <body>
 
-  <audio autoplay loop>
-    <source
-      src="https://cdn.pixabay.com/audio/2022/02/23/audio_3a1b0e2c64.mp3"
-      type="audio/mpeg"
-    >
+  <!-- เพลง คุณนายตื่นสาย -->
+  <audio id="bgm" loop>
+    <source src="khunnai-tuen-sai.mp3" type="audio/mpeg">
   </audio>
 
   <div class="card">
@@ -154,7 +131,8 @@
       เราคบกันมาแล้ว ❤️
     </div>
 
-    <button onclick="showSecret()">กดดูข้อความลับ 💌</button>
+    <button onclick="playMusic()">🎵 เปิดเพลงให้หัวใจ</button>
+    <button onclick="showSecret()">💌 กดดูข้อความลับ</button>
 
     <div class="secret" id="secret">
       ขอบคุณที่เข้ามาในชีวิตเรา<br>
@@ -163,7 +141,6 @@
   </div>
 
   <script>
-    // วันที่เริ่มคบ (15 ม.ค. 2024)
     const startDate = new Date("2024-01-15");
 
     function updateCounter() {
@@ -188,7 +165,10 @@
       document.getElementById("secret").style.display = "block";
     }
 
-    // สร้างหัวใจลอย
+    function playMusic() {
+      document.getElementById("bgm").play();
+    }
+
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "floating-heart";
@@ -196,12 +176,9 @@
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.fontSize = (Math.random() * 20 + 15) + "px";
       heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-
       document.body.appendChild(heart);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 7000);
+      setTimeout(() => heart.remove(), 7000);
     }
 
     setInterval(createHeart, 400);
@@ -209,4 +186,3 @@
 
 </body>
 </html>
-
