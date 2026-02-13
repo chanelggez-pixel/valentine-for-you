@@ -5,7 +5,6 @@
   <title>Happy Valentine ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -78,10 +77,8 @@
 
     .floating-heart {
       position: absolute;
-      color: rgba(255,255,255,0.7);
-      font-size: 20px;
-      animation: floatUp 6s linear infinite;
       bottom: -30px;
+      animation: floatUp 6s linear infinite;
     }
 
     @keyframes beat {
@@ -103,11 +100,6 @@
 
 <body>
 
-  <!-- เพลง คุณนายตื่นสาย -->
-  <audio id="bgm" loop>
-  <source src="khunnai-tuen-sai.mp3" type="audio/mpeg">
-</audio>
-
   <div class="card">
     <div class="heart">❤️</div>
 
@@ -115,26 +107,33 @@
     <p>สำหรับพิ้คหมูของพี่</p>
 
     <p>
-      คบกับตั้งแต่ช่วง<br>
+      คบกันตั้งแต่<br>
       <strong>15 มกราคม 2567</strong>
     </p>
 
-    <div class="counter" id="counter">
-      เราคบกันมาแล้ว ❤️
-    </div>
+    <div class="counter" id="counter"></div>
 
     <button onclick="playMusic()">🎵 เปิดเพลง</button>
     <button onclick="showSecret()">💌 กดดูข้อความลับ</button>
 
     <div class="secret" id="secret">
       ขอบคุณนะจ้ะที่อยู่กับเค้ามาจนถึงตอนนี้<br>
-      อยู่ด้วยกันไปนานๆนะจ้ะ happy valentine kub
+      อยู่ด้วยกันไปนานๆนะจ้ะ happy valentine kub ❤️
     </div>
   </div>
 
   <script>
     const startDate = new Date("2024-01-15");
-    const bgm = document.getElementById("bgm");
+    let bgm = null;
+
+    function playMusic() {
+      if (!bgm) {
+        bgm = new Audio("khunnai-tuen-sai.mp3");
+        bgm.loop = true;
+        bgm.volume = 0.8;
+      }
+      bgm.play();
+    }
 
     function updateCounter() {
       const now = new Date();
@@ -145,7 +144,7 @@
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
 
       document.getElementById("counter").innerHTML =
-        `เราคบกันมาแล้ว ประมาณนี้มั้งไม่เเน่ใจเเต่รักนะ<br>
+        `เราคบกันมาแล้ว ❤️<br>
         <strong>${days}</strong> วัน
         <strong>${hours}</strong> ชั่วโมง
         <strong>${minutes}</strong> นาที`;
@@ -156,16 +155,6 @@
 
     function showSecret() {
       document.getElementById("secret").style.display = "block";
-    }
-
-    function playMusic() {
-      bgm.muted = false;
-      bgm.volume = 0.8;
-
-      bgm.play().catch(err => {
-        alert("ถ้าเพลงไม่ดัง ลองกดอีกครั้งนะ ❤️");
-        console.log(err);
-      });
     }
 
     function createHeart() {
