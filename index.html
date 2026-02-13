@@ -2,60 +2,211 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>For You ❤️</title>
+  <title>Happy Valentine ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: sans-serif;
-      background: #ffe6ea;
-      text-align: center;
-      padding: 40px;
+      margin: 0;
+      height: 100vh;
+      font-family: 'Kanit', sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
     }
 
     .card {
-      background: white;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(10px);
       padding: 30px;
-      border-radius: 15px;
+      border-radius: 25px;
+      text-align: center;
+      width: 90%;
       max-width: 420px;
-      margin: auto;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1.5s ease;
     }
 
     h1 {
-      color: #ff4d6d;
+      font-size: 2.4em;
+      margin-bottom: 10px;
     }
 
-    .days {
-      font-size: 18px;
+    .heart {
+      font-size: 2.5em;
+      animation: beat 1.2s infinite;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin: 10px 0;
+    }
+
+    .counter {
       margin-top: 15px;
-      color: #555;
+      font-weight: 400;
+      background: rgba(255, 255, 255, 0.25);
+      padding: 10px;
+      border-radius: 15px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
+      background: #fff;
+      color: #ff4f81;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ffe3ec;
+    }
+
+    .secret {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.2em;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Floating hearts */
+    .floating-heart {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      bottom: -30px;
+    }
+
+    @keyframes beat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 
 <body>
 
+  <audio autoplay loop>
+    <source
+      src="https://cdn.pixabay.com/audio/2022/02/23/audio_3a1b0e2c64.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
+
   <div class="card">
-    <h1>Happy Valentine’s Day ❤️</h1>
+    <div class="heart">❤️</div>
 
-    <p>เราคบกันตั้งแต่</p>
-    <p><b>15 มกราคม 2567</b></p>
+    <h1>Happy Valentine</h1>
+    <p>สำหรับคนพิเศษของเรา</p>
 
-    <div class="days" id="days"></div>
+    <p>
+      คบกันตั้งแต่<br>
+      <strong>15 มกราคม 2567</strong>
+    </p>
 
-    <p>ขอบคุณที่เข้ามาเป็นส่วนหนึ่งในชีวิตผม</p>
-    <p>อยู่ด้วยกันแล้วผมมีความสุขมากจริง ๆ</p>
-    <p>ผมตั้งใจรักคุณทุกวันนะ 💖</p>
+    <div class="counter" id="counter">
+      เราคบกันมาแล้ว ❤️
+    </div>
+
+    <button onclick="showSecret()">กดดูข้อความลับ 💌</button>
+
+    <div class="secret" id="secret">
+      ขอบคุณที่เข้ามาในชีวิตเรา<br>
+      อยู่ด้วยกันไปนาน ๆ นะ 🤍
+    </div>
   </div>
 
   <script>
+    // วันที่เริ่มคบ (15 ม.ค. 2024)
     const startDate = new Date("2024-01-15");
-    const today = new Date();
-    const diffTime = today - startDate;
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-    document.getElementById("days").innerText =
-      "เราอยู่ด้วยกันมาแล้ว " + diffDays + " วัน ❤️";
+    function updateCounter() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+      document.getElementById("counter").innerHTML =
+        `เราคบกันมาแล้ว ❤️<br>
+        <strong>${days}</strong> วัน
+        <strong>${hours}</strong> ชั่วโมง
+        <strong>${minutes}</strong> นาที`;
+    }
+
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    function showSecret() {
+      document.getElementById("secret").style.display = "block";
+    }
+
+    // สร้างหัวใจลอย
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "floating-heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }
+
+    setInterval(createHeart, 400);
   </script>
 
 </body>
 </html>
+
