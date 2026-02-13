@@ -9,9 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -37,20 +35,14 @@
       animation: fadeIn 1.5s ease;
     }
 
-    h1 {
-      font-size: 2.4em;
-      margin-bottom: 10px;
-    }
+    h1 { font-size: 2.4em; margin-bottom: 10px; }
 
     .heart {
       font-size: 2.5em;
       animation: beat 1.2s infinite;
     }
 
-    p {
-      font-size: 1.1em;
-      margin: 10px 0;
-    }
+    p { font-size: 1.1em; margin: 10px 0; }
 
     .counter {
       margin-top: 15px;
@@ -112,7 +104,7 @@
 <body>
 
   <!-- เพลง คุณนายตื่นสาย -->
-  <audio id="bgm" loop>
+  <audio id="bgm" preload="auto" loop>
     <source src="khunnai-tuen-sai.mp3" type="audio/mpeg">
   </audio>
 
@@ -142,6 +134,7 @@
 
   <script>
     const startDate = new Date("2024-01-15");
+    const bgm = document.getElementById("bgm");
 
     function updateCounter() {
       const now = new Date();
@@ -166,7 +159,13 @@
     }
 
     function playMusic() {
-      document.getElementById("bgm").play();
+      bgm.muted = false;
+      bgm.volume = 0.8;
+
+      bgm.play().catch(err => {
+        alert("ถ้าเพลงไม่ดัง ลองกดอีกครั้งนะ ❤️");
+        console.log(err);
+      });
     }
 
     function createHeart() {
